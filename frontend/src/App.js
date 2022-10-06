@@ -1,47 +1,20 @@
-import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import About from "./pages/About";
+import Products from "./pages/Products";
 import "./App.css";
 
-const App = () => {
-  const [Products, setProducts] = useState([]);
-  useEffect(() => {
-    fetch("http://localhost:8000/products")
-      .then((response) => response.json())
-      .then((Products) => {
-        // console.log(Products);
-        setProducts(Products);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
-
-  const DisplayData = Products.map((products) => {
-    return (
-      <tr key={products.id}>
-        <td>{products.id}</td>
-        <td>{products.name}</td>
-        <td>{products.quantity}</td>
-        <td>{products.price}</td>
-      </tr>
-    );
-  });
-
+function App() {
   return (
-    <div>
-      <h1>Product List</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>{DisplayData}</tbody>
-      </table>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<About />}></Route>
+          <Route path="/Products" element={<Products />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
-};
-
+}
 export default App;
